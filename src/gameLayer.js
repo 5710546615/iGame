@@ -6,7 +6,7 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
  
     this.player = new player();
-    this.player.setPosition( new cc.Point( 200, 600 ) );
+    this.player.setPosition( new cc.Point( 200, 100 ) );
     this.addChild( this.player );
     this.player.scheduleUpdate();
     
@@ -15,28 +15,40 @@ var GameLayer = cc.LayerColor.extend({
     return true;
     },
 
-    onKeyDown: function( keyCode, event ) {
-    if ( keyCode == cc.KEY.space ) {
-        this.player.switchDirection();
+    onKey: function( e ) {
+    if ( e.keyCode = Keyboard.LEFT ) {
+        this.player.moveLEFT();
     }
+    else if ( e.keyCode = Keyboard.RIGHT ) {
+        this.player.moveRIGHT();
+    } 
+    else if ( e.keyCode = Keyboard.UP ) {
+        this.player.moveUP();
+    } 
+    else if ( e.keyCode = Keyboard.DOWN ) {
+        this.player.moveDOWN();
+    }
+    else {
+        this.player.STOP();
+    }
+
     },
 
-    onKeyUp: function( keyCode, event ) {
-    console.log( 'Up: ' + keyCode.toString() );
-    },
+
 
     addKeyboardHandlers: function() {
         var self = this;
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
-            onKeyPressed : function( keyCode, event ) {
-                self.onKeyDown( keyCode, event );
+            onKeyPressed : function( e ) {
+                self.onKeyDown( e );
             },
-            onKeyReleased: function( keyCode, event ) {
-                self.onKeyUp( keyCode, event );
+            onKeyReleased: function( e ) {
+                self.onKeyUp( e );
             }
         }, this);
-    }
+    },
+
 
 });
  

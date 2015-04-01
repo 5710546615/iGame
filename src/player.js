@@ -2,28 +2,38 @@ var player = cc.Sprite.extend({
     ctor: function(x,y) {
         this._super();
         this.initWithFile( 'res/player.png' );
-
-        this.x = x;
-        this.y = y;
-
-
+        this.directionX = 0;
+        this.directionY = 0;
+    
     },
 
     update: function( dt ) {
     var pos = this.getPosition();
 
-    if(pos.x < screenWidth)
-    this.setPosition( new cc.Point( pos.x, 0 ) );
-
+    if(pos.x < screenWidth){
+    this.setPosition( new cc.Point( pos.x + this.directionX, pos.y + this.directionY) );
+    }
+    else {
+        this.setPosition(new cc.Point (0,pos.y))
+    }
     },
-    switchDirection: function() {
-        if ( this.direction == Ship.DIR.UP ) {
-        this.direction = Ship.DIR.RIGHT;
-        this.setRotation( 90 );
-        } else {
-        this.direction = Ship.DIR.UP;
-        this.setRotation( 0 );
+    
+    moveUP: function(){
+        this.directionY = 3;
+    },
+    moveDOWN: function(){
+        this.directionY = -3;
+    },
+    moveRight: function(){
+        this.directionX = 3;
+    },
+    moveLeft: function(){
+        this.directionX = -3;
+    },
+    STOP: function(){
+        this.directionX = 0;
+        this.directionY = 0;
     }
-    }
+
 
 });
