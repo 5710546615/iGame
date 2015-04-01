@@ -8,10 +8,14 @@ var player = cc.Sprite.extend({
     },
 
     update: function( dt ) {
+
     var pos = this.getPosition();
 
     if(pos.x < screenWidth){
     this.setPosition( new cc.Point( pos.x + this.directionX, pos.y + this.directionY) );
+    }
+    else if(pos.x == 0){
+        this.setPosition(new cc.Point(pos.x , pos.y));
     }
     else {
         this.setPosition(new cc.Point (0,pos.y))
@@ -21,13 +25,12 @@ var player = cc.Sprite.extend({
     moveUP: function(){
         this.directionY = 3;
     },
-    moveDOWN: function(){
-        this.directionY = -3;
-    },
     moveRight: function(){
+         this.setFlippedX(false);
         this.directionX = 3;
     },
     moveLeft: function(){
+        this.setFlippedX(true);
         this.directionX = -3;
     },
     STOP: function(){

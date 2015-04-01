@@ -4,9 +4,12 @@ var GameLayer = cc.LayerColor.extend({
 
         this._super( new cc.Color( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
- 
+    
+    this.background = new Background();
+    this.background.setPosition( new cc.Point(400,300));
+    this.addChild(this.background);
     this.player = new player();
-    this.player.setPosition( new cc.Point( 200, 100 ) );
+    this.player.setPosition( new cc.Point( 200, 83 ) );
     this.addChild( this.player );
     this.player.scheduleUpdate();
     
@@ -15,40 +18,39 @@ var GameLayer = cc.LayerColor.extend({
     return true;
     },
 
-    onKey: function( e ) {
-    if ( e.keyCode = Keyboard.LEFT ) {
-        this.player.moveLEFT();
+   onKeyDown: function( keyCode, event ) {
+    if ( keyCode == cc.KEY.left ) {
+        this.player.moveLeft();
     }
-    else if ( e.keyCode = Keyboard.RIGHT ) {
-        this.player.moveRIGHT();
+    else if ( keyCode == cc.KEY.right ) {
+        this.player.moveRight();
     } 
-    else if ( e.keyCode = Keyboard.UP ) {
+    else if ( keyCode == cc.KEY.up ) {
         this.player.moveUP();
-    } 
-    else if ( e.keyCode = Keyboard.DOWN ) {
-        this.player.moveDOWN();
     }
     else {
         this.player.STOP();
     }
 
     },
-
-
+     onKeyUp: function( keyCode, event ) {
+        if ( keyCode == cc.KEY.left  || keyCode == cc.KEY.right || keyCode == cc.KEY.up ) {
+            this.player.STOP();
+        }
+     },
 
     addKeyboardHandlers: function() {
         var self = this;
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
-            onKeyPressed : function( e ) {
-                self.onKeyDown( e );
+            onKeyPressed : function( keyCode, event ) {
+                self.onKeyDown( keyCode, event );
             },
-            onKeyReleased: function( e ) {
-                self.onKeyUp( e );
+            onKeyReleased: function( keyCode, event ) {
+                self.onKeyUp( keyCode, event );
             }
         }, this);
     },
-
 
 });
  
