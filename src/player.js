@@ -1,4 +1,4 @@
-var player = cc.Sprite.extend({
+var Player = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/player.png' );

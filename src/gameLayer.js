@@ -9,7 +9,7 @@ var GameLayer = cc.LayerColor.extend({
         this.background.setPosition( new cc.Point(400,300));
         this.addChild(this.background);
 
-        this.player = new player();
+        this.player = new Player();
         this.player.setPosition( new cc.Point( 200, 83 ) );
         this.addChild( this.player );
         this.player.scheduleUpdate();
@@ -20,6 +20,7 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function( keyCode, event ) {
+
         if ( keyCode == cc.KEY.left ) {
             this.player.moveLeft();
         }
@@ -35,12 +36,15 @@ var GameLayer = cc.LayerColor.extend({
 
     },
     onKeyUp: function( keyCode, event ) {
+
         if ( keyCode == cc.KEY.left  || keyCode == cc.KEY.right || keyCode == cc.KEY.up ) {
             this.player.STOP();
         }
+
     },
 
     addKeyboardHandlers: function() {
+
         var self = this;
         cc.eventManager.addListener({
         event: cc.EventListener.KEYBOARD,
@@ -56,6 +60,7 @@ var GameLayer = cc.LayerColor.extend({
 });
  
 var StartScene = cc.Scene.extend({
+
     onEnter: function() {
         this._super();
         var layer = new GameLayer();
