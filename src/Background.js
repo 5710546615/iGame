@@ -4,6 +4,5 @@ var Background = cc.Sprite.extend({
         this.initWithFile( 'res/background.png' );
         this.directionX = 0;
         this.directionY = 0;
-    
     }
 });
