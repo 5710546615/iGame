@@ -1,6 +1,9 @@
 var res = {
 
-   player_png : "res/player.png"
+   player_png : 'res/player.png',
+   npc_png : 'res/npc.png',
+   background_png : 'res/background.png',
+   heart_png : 'res/heart.png'
 
 };
 

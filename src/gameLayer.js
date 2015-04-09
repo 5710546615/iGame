@@ -10,11 +10,24 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.background);
 
         this.player = new Player();
-        this.player.setPosition( new cc.Point( 200, 83 ) );
+        this.player.setPosition( new cc.Point( 400, 100 ) );
         this.addChild( this.player );
         this.player.scheduleUpdate();
     
+    
+        this.Npcs = new Npc();
+        this.Npcs.setPosition(new cc.Point(400,600));
+        this.addChild(this.Npcs);
+
+        // this.Hearts = new Heart();
+        // this.Hearts.setPosition(new cc.Point(500,600));
+        // this.addChild(this.Hearts);
+        
         this.addKeyboardHandlers();
+
+        this.Npcs.scheduleUpdate();
+
+        // this.Hearts.scheduleUpdate();
 
         return true;
     },
@@ -28,7 +41,10 @@ var GameLayer = cc.LayerColor.extend({
             this.player.moveRight();
         } 
         else if ( keyCode == cc.KEY.up ) {
-            this.player.moveUP();
+            this.player.moveUp();
+        }
+        else if (keyCode == cc.KEY.down){
+            this.player.moveDown();
         }
         else {
             this.player.STOP();
@@ -37,7 +53,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     onKeyUp: function( keyCode, event ) {
 
-        if ( keyCode == cc.KEY.left  || keyCode == cc.KEY.right || keyCode == cc.KEY.up ) {
+        if ( keyCode == cc.KEY.left  || keyCode == cc.KEY.right || keyCode == cc.KEY.up || keyCode == cc.KEY.down) {
             this.player.STOP();
         }
 
