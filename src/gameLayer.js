@@ -10,11 +10,12 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.background);
 
         this.player = new Player();
-        this.player.setPosition( new cc.Point( screenWidth / 2 , screenHeight / 2 ) );
+        this.player.setPosition( new cc.Point( screenWidth / 2 , 100));
         this.addChild( this.player );
         this.player.scheduleUpdate();
     
         this.Npc = new Npc();
+        // this.Npc.setPosition(new cc.Point(0,screenHeight));
         this.Npc.setPosition(new cc.Point(400,500));
         this.addChild(this.Npc);
         this.Npc.scheduleUpdate();
@@ -78,6 +79,7 @@ var GameLayer = cc.LayerColor.extend({
     endGame: function() {
         if ( this.Npc ) {
             this.Npc.unscheduleUpdate();
+            this.player.unscheduleUpdate();
         }
     }
 
