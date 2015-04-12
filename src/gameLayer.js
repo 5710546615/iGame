@@ -10,24 +10,18 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.background);
 
         this.player = new Player();
-        this.player.setPosition( new cc.Point( 400, 100 ) );
+        this.player.setPosition( new cc.Point( screenWidth / 2 , screenHeight / 2 ) );
         this.addChild( this.player );
         this.player.scheduleUpdate();
     
-    
-        this.Npcs = new Npc();
-        this.Npcs.setPosition(new cc.Point(400,600));
-        this.addChild(this.Npcs);
+        this.Npc = new Npc();
+        this.Npc.setPosition(new cc.Point(400,500));
+        this.addChild(this.Npc);
+        this.Npc.scheduleUpdate();
 
-        // this.Hearts = new Heart();
-        // this.Hearts.setPosition(new cc.Point(500,600));
-        // this.addChild(this.Hearts);
-        
         this.addKeyboardHandlers();
 
-        this.Npcs.scheduleUpdate();
-
-        // this.Hearts.scheduleUpdate();
+        this.scheduleUpdate();
 
         return true;
     },
@@ -72,6 +66,22 @@ var GameLayer = cc.LayerColor.extend({
             }
         }, this);
     },
+
+    update: function( dt ) {
+        
+            if ( this.Npc && this.Npc.hit( this.player ) ) {
+                this.endGame();
+            }
+        
+    },
+
+    endGame: function() {
+        if ( this.Npc ) {
+            this.Npc.unscheduleUpdate();
+        }
+    }
+
+
 
 });
  

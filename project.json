@@ -16,6 +16,6 @@
       "src/Player.js",
       "src/Background.js",
       "src/Npc.js",
-      "src/Heart.js"
+      "src/coldetect.js"
           ]
 }
