@@ -18,19 +18,18 @@ var Player = cc.Sprite.extend({
     },
     
     moveUp: function(){
-        this.directionY = 5;
+        this.directionY = 7;
     },
     moveRight: function(){
-        this.directionX = 5;
+        this.directionX = 7;
     },
     moveLeft: function(){
-        this.directionX = -5;
+        this.directionX = -7;
     },
     moveDown: function(){
-        this.directionY = -5;
+        this.directionY = -7;
         
     },
-
     STOP: function(){
         this.directionX = 0;
         this.directionY = 0;

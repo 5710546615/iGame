@@ -1,7 +1,5 @@
 var GameLayer = cc.LayerColor.extend({
-
     init: function() {
-
         this._super( new cc.Color( 127, 127, 127, 255 ) );
         this.setPosition( new cc.Point( 0, 0 ) );
 
@@ -14,17 +12,84 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.player );
         this.player.scheduleUpdate();
     
-        this.Npc = new Npc();
-        // this.Npc.setPosition(new cc.Point(0,screenHeight));
-        this.Npc.setPosition(new cc.Point(400,500));
-        this.addChild(this.Npc);
-        this.Npc.scheduleUpdate();
+
+        this.WIDTH = 20;
+        this.HEIGHT = 17;
+        
+        this.MAP = [
+            '#################..#',
+            '#..................#',
+            '#..................#',
+            '#..................#',
+            '#..#################',
+            '#..................#',
+            '#..................#',
+            '#..................#',
+            '#################..#',
+            '#..................#',
+            '#..................#',
+            '#..................#',
+            '#..#################',
+            '#..................#',
+            '#..................#',
+            '#..................#',
+            '#################..#'
+        ];
+
+        this.npcs = [];
+        var npc = null;
+        for ( var r = 0; r < this.HEIGHT; r++ ) {
+            for ( var c = 0; c < this.WIDTH; c++ ) {
+                if ( this.MAP[ r ][ c ] == '#' ) {
+                    npc = new Npc();
+                    npc.setPosition( cc.p( c * 40 + 20, (this.HEIGHT - r - 1) * 40 + 700 ) );
+                    this.addChild( npc );
+                    npc.scheduleUpdate();
+
+                    this.npcs.push( npc );
+                }
+            }
+        }
+
 
         this.addKeyboardHandlers();
-
         this.scheduleUpdate();
 
         return true;
+    },
+
+    update: function( dt ) {
+
+    var self = this;
+    this.npcs.forEach( function( npc, i ) {
+        var npcX = npc.getPositionX();
+        var npcY = npc.getPositionY();
+
+        var playerX = self.player.getPositionX();
+        var playerY = self.player.getPositionY();
+
+        if ( Math.abs(npcX - playerX) < 22 && Math.abs(npcY - playerY) < 22 ) {
+            if(playerY == npcY || playerX == npcX){
+                
+                        var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
+                        gameOverLabel.setPosition( cc.p( 400, 300 ) );
+                        self.addChild( gameOverLabel );
+                        cc.director.pause();
+                    
+                    return;
+            }
+        }
+
+        if ( Math.abs(npcX - playerX) < 16 && Math.abs(npcY - playerY) < 16 ) {
+            
+                        var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
+                        gameOverLabel.setPosition( cc.p( 400, 300 ) );
+                        self.addChild( gameOverLabel );
+                        cc.director.pause();
+                    
+                    return;
+        }
+        });
     },
 
     onKeyDown: function( keyCode, event ) {
@@ -68,18 +133,14 @@ var GameLayer = cc.LayerColor.extend({
         }, this);
     },
 
-    update: function( dt ) {
-        
-            if ( this.Npc && this.Npc.hit( this.player ) ) {
-                this.endGame();
-            }
-        
-    },
-
     endGame: function() {
         if ( this.Npc ) {
             this.Npc.unscheduleUpdate();
             this.player.unscheduleUpdate();
+            var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
+                        gameOverLabel.setPosition( cc.p( 400, 300 ) );
+                        this.addChild( gameOverLabel );
+                        cc.director.pause();
         }
     }
 

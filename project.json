@@ -16,6 +16,7 @@
       "src/Player.js",
       "src/Background.js",
       "src/Npc.js",
-      "src/coldetect.js"
+      "src/coldetect.js",
+      "src/FastNpc.js"
           ]
 }
