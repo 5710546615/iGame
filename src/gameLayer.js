@@ -16,21 +16,20 @@ var GameLayer = cc.LayerColor.extend({
         this.HEIGHT = 100;
         this.MAP = [
             '####################',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
-            '#..................#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
+            '#...##.........##..#',
             '#...##.........##..#',
             '#..................#',
             '#..................#',
@@ -42,6 +41,7 @@ var GameLayer = cc.LayerColor.extend({
             '#..................#',
             '#..................#',
             '#..................#',
+            '#..................#',
             '#..#..#..#..#..#..##',
             '##..##..##..##..##.#',
             '###..###..###..###.#',
@@ -60,7 +60,7 @@ var GameLayer = cc.LayerColor.extend({
             '##..##..##..##..##.#',
             '#..#..#..#..#..#..##',
             '##..##..##..##..##.#',
-            '#000..00000000..000#',
+            '#000..000000000..00#',
             '###..###..###..###.#',
             '##..##..##..##..##.#',
             '#..#..#..#..#..#..##',
@@ -136,15 +136,21 @@ var GameLayer = cc.LayerColor.extend({
                 }
             }
         }
+        this.score = 0;
+        this.scoreLabel = cc.LabelTTF.create(0, 'Arial',32);
+        this.scoreLabel.setPosition(cc.p(700,550));
+        this.addChild(this.scoreLabel);
 
         this.addKeyboardHandlers();
         this.scheduleUpdate();
         return true;
     },
-
     update: function( dt ) {
         var self = this;
+        self.score += 0.1;
+        self.scoreLabel.setString(Math.floor(self.score));
         this.npcs.forEach( function( npc, i ) {
+        	
             var npcX = npc.getPositionX();
             var npcY = npc.getPositionY();
             var playerX = self.player.getPositionX();
@@ -167,7 +173,6 @@ var GameLayer = cc.LayerColor.extend({
             }
         });
     },
-
     onKeyDown: function( keyCode, event ) {
         if ( keyCode == cc.KEY.left ) {
             this.player.moveLeft();
@@ -198,16 +203,6 @@ var GameLayer = cc.LayerColor.extend({
                 self.onKeyUp( keyCode, event );
             }
         }, this);
-    },
-    endGame: function() {
-        if ( this.Npc ) {
-            this.Npc.unscheduleUpdate();
-            this.player.unscheduleUpdate();
-            var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
-                        gameOverLabel.setPosition( cc.p( 400, 300 ) );
-                        this.addChild( gameOverLabel );
-                        cc.director.pause();
-        }
     }
 });
 var StartScene = cc.Scene.extend({
@@ -217,5 +212,4 @@ var StartScene = cc.Scene.extend({
         layer.init();
         this.addChild( layer );
     }
-
 });
