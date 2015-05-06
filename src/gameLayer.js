@@ -25,9 +25,9 @@ var GameLayer = cc.LayerColor.extend({
         	'#sssss.............#',
         	'#ssss..............#',
         	'#sss...............#',
-        	'#ss................#',
-        	'#s.................#',
-            '#..................#',
+        	'#ss##..##..##..##..#',
+        	'#s.##..##..##..##..#',
+            '#..##..##..##..##..#',
             '#..##..##..##..#####',
         	'#..######..##..##..#',
             '#......##..##..##..#',
@@ -278,13 +278,14 @@ var GameLayer = cc.LayerColor.extend({
         self.score += 0.02;
         self.scoreLabel.setString(Math.floor(self.score));
         this.npcs.forEach( function( npc, i ) {
-        	
+
             var npcX = npc.getPositionX();
             var npcY = npc.getPositionY();
             var playerX = self.player.getPositionX();
             var playerY = self.player.getPositionY();
-            if ( Math.abs(npcX - playerX) < 22 && Math.abs(npcY - playerY) < 22 ) {
-                if(playerY == npcY || playerX == npcX){
+
+            if ( Math.abs(npcX - playerX) <= 20 && Math.abs(npcY - playerY) <= 20) {
+                if(Math.abs(npcX - playerX) < 5 || Math.abs(npcY - playerY) < 5){
                     var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
                         gameOverLabel.setPosition( cc.p( 400, 300 ) );
                         self.addChild( gameOverLabel );
@@ -297,7 +298,7 @@ var GameLayer = cc.LayerColor.extend({
                     gameOverLabel.setPosition( cc.p( 400, 300 ) );
                     self.addChild( gameOverLabel );
                     cc.director.pause();    
-                    return;
+                return;
             }
         });
     },
@@ -310,7 +311,7 @@ var GameLayer = cc.LayerColor.extend({
             this.player.moveUp();
         } else if (keyCode == cc.KEY.down){
             this.player.moveDown();
-        } else {
+        } else {1
             this.player.STOP();
         }
 
