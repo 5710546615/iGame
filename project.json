@@ -17,6 +17,7 @@
       "src/Background.js",
       "src/Npc.js",
       "src/FastNpc.js",
-      "src/FasterNpc.js"
+      "src/FasterNpc.js",
+      "src/Score.js"
     ]
 }

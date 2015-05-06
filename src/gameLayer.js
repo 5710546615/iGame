@@ -7,6 +7,8 @@ var GameLayer = cc.LayerColor.extend({
         this.background.setPosition( new cc.Point(400,300));
         this.addChild(this.background);
 
+        
+
         this.player = new Player();
         this.player.setPosition( new cc.Point( screenWidth / 2 , 100));
         this.addChild( this.player );
@@ -285,20 +287,22 @@ var GameLayer = cc.LayerColor.extend({
             var playerY = self.player.getPositionY();
 
             if ( Math.abs(npcX - playerX) <= 20 && Math.abs(npcY - playerY) <= 20) {
-                if(Math.abs(npcX - playerX) < 5 || Math.abs(npcY - playerY) < 5){
-                    var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
-                        gameOverLabel.setPosition( cc.p( 400, 300 ) );
-                        self.addChild( gameOverLabel );
-                        cc.director.pause();
+                // if(Math.abs(npcX - playerX) < 5 || Math.abs(npcY - playerY) < 5){
+                if((Math.abs(npcX - playerX) < 5 || Math.abs(npcY - playerY) < 5)||(Math.abs(npcX - playerX) < 16 && Math.abs(npcY - playerY) < 16)){
+                    
+                    this.scores = new Score();
+                    this.scores.setPosition( new cc.Point(400,300));
+                    self.addChild(this.scores);
+
+                    self.removeChild(self.scoreLabel);
+
+                    var iScore = cc.LabelTTF.create( Math.floor(self.score), 'Arial',75);
+                    iScore.setPosition(cc.p(405,240));
+                    self.addChild(iScore);
+
+                    cc.director.pause();
                     return;
                 }
-            }
-            if ( Math.abs(npcX - playerX) < 16 && Math.abs(npcY - playerY) < 16 ) {
-                var gameOverLabel = cc.LabelTTF.create( 'Game over', 'Arial', 60 );
-                    gameOverLabel.setPosition( cc.p( 400, 300 ) );
-                    self.addChild( gameOverLabel );
-                    cc.director.pause();    
-                return;
             }
         });
     },
