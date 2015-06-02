@@ -336,7 +336,7 @@ var GameLayer = cc.LayerColor.extend({
                 self.onKeyUp( keyCode, event );
             }
         }, this);
-    }
+    },
 });
 var StartScene = cc.Scene.extend({
     onEnter: function() {
